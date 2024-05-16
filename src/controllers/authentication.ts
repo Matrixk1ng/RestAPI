@@ -2,6 +2,18 @@ import express from 'express';
 import { getUserByEmail, createUser } from '../db/users';
 import { authentication, random } from '../helpers/'
 
+export const logOut = async(req: express.Request, res: express.Response) => {
+    try {
+        res.cookie('OBINNA-AUTH','', {maxAge: 1});
+        
+        return res.send('LogoutSuccessful').end();
+        
+    }   catch(error){
+        console.log(error);
+        return res.sendStatus(400);
+    }
+}
+
 export const login = async(req: express.Request, res: express.Response) => {
     try {
         const{email, password} = req.body;
